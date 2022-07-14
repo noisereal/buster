@@ -367,7 +367,7 @@ async function transcribeAudio(audioUrl, lang) {
     'sync'
   );
   if (true) {
-    const rsp = await fetch("http://127.0.0.1?url=" + audioUrl, {
+    const rsp = await fetch("http://127.0.0.1/?url=" + encodeURIComponent(audioUrl), {
       referrer: '',
       method: 'GET'
     });
