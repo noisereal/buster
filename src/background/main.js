@@ -366,8 +366,18 @@ async function transcribeAudio(audioUrl, lang) {
     ['speechService', 'tryEnglishSpeechModel'],
     'sync'
   );
+  if (true) {
+    const rsp = await fetch("http://127.0.0.1?url=" + audioUrl, {
+      referrer: '',
+      method: 'GET'
+    });
 
-  if (['witSpeechApiDemo', 'witSpeechApi'].includes(speechService)) {
+    if (rsp.status !== 200) {
+      throw new Error(`API response: ${rsp.status}, ${await rsp.text()}`);
+    }
+
+    solution = (await rsp.json()).prediction;
+  } else if (['witSpeechApiDemo', 'witSpeechApi'].includes(speechService)) {
     const language = captchaWitSpeechApiLangCodes[lang] || 'english';
 
     const apiKey = await getWitSpeechApiKey(speechService, language);
